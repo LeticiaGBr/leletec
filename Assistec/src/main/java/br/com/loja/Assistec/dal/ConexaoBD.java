@@ -1,37 +1,23 @@
-package br.com.loja.assistec.dal;
+package br.com.loja.Assistec.dal;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class ConexaoBD {
-	// São criadas constantes pois as informações são estáticas
-	private static final String URL_MYSQL = "jdbc:mysql://localhost:3306/lojabd";
-
-	private static final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
-
-	private static final String USER = "root";
-
-	private static final String PASSWORD = "aluno";
-
-	// Método para estabelecer conexão com o BD
-	public static Connection conectar() {
-
+	public static Connection getConnection()
+	{
+		Connection conexao = null;
+		String driver = "com.mysql.cj.jdbc.Driver";
+		String url = "jdbc:mysql://localhost:3306/lojabd";
+		String user = "root";
+		String senha = "aluno";
+		
 		try {
-			Class.forName(DRIVER_CLASS);
-			return DriverManager.getConnection(URL_MYSQL, USER, PASSWORD);
-		} catch (ClassNotFoundException e) {
-			e.getMessage();
-		} catch (SQLException e) {
-			e.getMessage();
-		}
-		return null;
-	}
-	
-	//Método para desconectar do banco e dados
-	public void desconectar(Connection conexao) {
-		try {
-			conexao.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+			Class.forName(driver);
+			conexao = DriverManager.getConnection(url,user,senha);
+			return conexao;
+		} catch (Exception e) {
+			return null;
 		}
 	}
 	
